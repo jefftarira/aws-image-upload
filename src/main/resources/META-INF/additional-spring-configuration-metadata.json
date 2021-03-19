@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "aws.secret-key",
+      "type": "java.lang.String",
+      "description": "Description for aws.secret-key."
+    },
+    {
+      "name": "aws.access-key",
+      "type": "java.lang.String",
+      "description": "Description for aws.access-key."
+    },
+    {
+      "name": "aws.s3-bucket-name",
+      "type": "java.lang.String",
+      "description": "Description for aws.s3-bucket-name."
+    }
+  ]
+}

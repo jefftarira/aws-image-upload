@@ -1,6 +1,7 @@
 package com.tarira.awsimageupload.bucket;
 
 public enum BucketName {
+
   PROFILE_IMAGE("jeff-images-upload");
 
   private final String bucketName;

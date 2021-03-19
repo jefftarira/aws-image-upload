@@ -23,7 +23,6 @@ public class UserProfileService {
   }
 
   public void uploadUserProfileImage(UUID userProfileId, MultipartFile file) {
-    //TODO: implement and check files for upload  to s3
     isFileEmpty(file);
 
     isImage(file);
@@ -36,6 +35,7 @@ public class UserProfileService {
     String fileName = String.format("%s", UUID.randomUUID());
     try {
       fileStore.save(path, fileName, Optional.of(metadata), file.getInputStream());
+      user.setUserProfileImageLink(fileName);
     } catch (IOException e) {
       throw new IllegalStateException(e);
     }
@@ -68,5 +68,17 @@ public class UserProfileService {
   private void isFileEmpty(MultipartFile file) {
     if (file.isEmpty())
       throw new IllegalStateException("Cannot upload empty file [" + file.getSize() + " ]");
+  }
+
+  public byte[] downloadUserProfileImage(UUID userProfileId) {
+    UserProfile user = getUserProfileOrThrow(userProfileId);
+
+    String path = String.format("%s/%s",
+            BucketName.PROFILE_IMAGE.getBucketName(),
+            user.getUserProfileId());
+
+    return Optional.ofNullable(user.getUserProfileImageLink())
+            .map(key -> fileStore.download(path, key))
+            .orElse(new byte[0]);
   }
 }

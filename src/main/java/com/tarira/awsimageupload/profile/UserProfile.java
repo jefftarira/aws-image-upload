@@ -11,8 +11,8 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class UserProfile implements Serializable {
 
-  private UUID userProfileId;
-  private String username;
+  private final UUID userProfileId;
+  private final String username;
   private String userProfileImageLink;  //S3 key
 
 }
